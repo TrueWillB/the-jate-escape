@@ -13,9 +13,8 @@ const initdb = async () =>
     },
   });
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
+// DONE: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
-  console.log("Currently implementing postDb");
   //open the connection to the database
   const db = await openDB("jate", 1);
   //open a transaction to the database, give it read and write access since this is a put operation
@@ -32,10 +31,25 @@ export const putDb = async (content) => {
   //we defined that request variable earlier so that we can use it to check if the operation was successful
   const result = request;
   //now I'm going to log it and see what comes out. Hopefully this works
-  console.log(`Here is the result of post:${result}`);
+  // console.log(`Here is the result of post:${result}`);
 };
 
-// TODO: Add logic for a method that gets all the content from the database
-export const getDb = async () => console.error("getDb not implemented");
+// DONE: Add logic for a method that gets all the content from the database
+export const getDb = async () => {
+  console.log("entering the get method");
+  const db = await openDB("jate", 1);
+  const tx = db.transaction("jate", "readonly");
+  const store = tx.objectStore("jate");
+  //store.get is very finicky so I am not touching it unless there is actually something in the database
+  //I couldn't even get it to work with essentially this same statement in a ternary operator
+  if ((await store.count()) > 0) {
+    const request = await store.get(1);
+    console.log(request.text);
+    const result = request.text;
+    return result;
+  } else {
+    return null;
+  }
+};
 
 initdb();
