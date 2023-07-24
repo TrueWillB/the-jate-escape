@@ -44,7 +44,7 @@ export const getDb = async () => {
   //I couldn't even get it to work with essentially this same statement in a ternary operator
   if ((await store.count()) > 0) {
     const request = await store.get(1);
-    console.log(request.text);
+    // console.log(request.text);
     const result = request.text;
     return result;
   } else {
