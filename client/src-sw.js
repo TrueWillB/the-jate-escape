@@ -29,8 +29,14 @@ registerRoute(({ request }) => request.mode === "navigate", pageCache);
 // DONE: Implement asset caching
 //So, the detailed explanation of what this does is:
 registerRoute(
+  //QUESTION: What exactly is going on in this line below?
+  //Also, how do I get the image to load? And how do I get the favicon to load?
+
   // Here we define the callback function that will filter the requests we want to cache (in this case, JS and CSS files)
-  ({ request }) => ["style", "script", "worker"].includes(request.destination),
+  ({ request }) => {
+    console.log(request);
+    return ["style", "script", "worker"].includes(request.destination);
+  },
   //It seems important to always check that the assets are up to date, so I'm going to use the StaleWhileRevalidate strategy
   new StaleWhileRevalidate({
     // Name of the cache storage.
@@ -43,3 +49,5 @@ registerRoute(
     ],
   })
 );
+
+//What's left, get image and icon working, get install button to go away when after installing
