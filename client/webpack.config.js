@@ -22,9 +22,10 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: "./index.html",
         title: "JATE",
+        favicon: "./favicon.ico",
       }),
       new WebpackPwaManifest({
-        // fingerprints: false,
+        fingerprints: false,
         // inject: true,
         name: "Just Another Text Editor",
         short_name: "JATE",
